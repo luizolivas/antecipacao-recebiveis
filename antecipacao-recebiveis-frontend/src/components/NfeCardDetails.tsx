@@ -2,7 +2,7 @@ import { useEffect, useState, type FunctionComponent } from "react";
 import type { Nfe } from "../types/Nfe";
 import { useParams } from "react-router-dom";
 
-const NfeCard: FunctionComponent = () =>{
+const NfeCardDetails: FunctionComponent = () =>{
 
     const [nfe,setNfe] = useState<Nfe>({
         id: 0,
@@ -71,4 +71,4 @@ const NfeCard: FunctionComponent = () =>{
     )
 }
 
-export default NfeCard
+export default NfeCardDetails

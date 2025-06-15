@@ -1,4 +1,4 @@
-import NfeCard from '../components/NfeCard'
+import NfeCard from '../components/NfeCardDetails'
 import { Link } from 'react-router-dom'
 
 

@@ -1,10 +1,11 @@
 import { useState, type FunctionComponent } from "react";
-import type { Enterprise } from "../types/Enterprise";
+import type { Company } from "../types/Company";
 import { Sector } from "../types/enums/Sector";
 
-const EnterpriseCard: FunctionComponent = () =>{
+const CompanyCardDetails: FunctionComponent = () =>{
 
-    const [enterprise, setEnterprise] = useState<Enterprise>({
+    const [company, setCompany] = useState<Company>({
+        id: 1,
         nome: '',
         cnpj: '',
         faturamentoMensal: 0,
@@ -14,7 +15,7 @@ const EnterpriseCard: FunctionComponent = () =>{
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target
-        setEnterprise((prev) => ({
+        setCompany((prev) => ({
             ...prev,
             [name]: name === 'valor' ? Number(value) : value
         }))
@@ -29,7 +30,7 @@ const EnterpriseCard: FunctionComponent = () =>{
                 <label className="block text-sm font-medium">Nome</label>
                 <input
                 type="text"
-                value={enterprise.nome}
+                value={company.nome}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded px-2 py-1"         
                 />        
@@ -39,7 +40,7 @@ const EnterpriseCard: FunctionComponent = () =>{
                 <label className="block text-sm font-medium">CNPJ</label>
                 <input
                 type="text"
-                value={enterprise.cnpj}
+                value={company.cnpj}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded px-2 py-1"         
                 />
@@ -50,7 +51,7 @@ const EnterpriseCard: FunctionComponent = () =>{
                 <input
                     type="number"
                     name="dataVencimento"             
-                    value={enterprise.faturamentoMensal}
+                    value={company.faturamentoMensal}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded px-2 py-1"
                 />
@@ -60,7 +61,7 @@ const EnterpriseCard: FunctionComponent = () =>{
                 <label className="block text-sm font-medium">Setor</label>
                 <select
                 name="setor"
-                value={enterprise.setor}
+                value={company.setor}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded px-2 py-1"
                 >
@@ -79,4 +80,4 @@ const EnterpriseCard: FunctionComponent = () =>{
     )
 }
 
-export default EnterpriseCard
+export default CompanyCardDetails
