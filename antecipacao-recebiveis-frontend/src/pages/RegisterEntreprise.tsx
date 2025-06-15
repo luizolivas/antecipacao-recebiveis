@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 
-function RegisterEntreprise() {
+const RegisterEntreprise = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow rounded-lg p-6">

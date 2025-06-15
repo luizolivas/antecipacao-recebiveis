@@ -1,13 +1,23 @@
-import { useState, type FunctionComponent } from "react";
+import { useEffect, useState, type FunctionComponent } from "react";
 import type { Nfe } from "../types/Nfe";
+import { useParams } from "react-router-dom";
 
 const NfeCard: FunctionComponent = () =>{
 
     const [nfe,setNfe] = useState<Nfe>({
+        id: 0,
         numero: '',
         valor: 0,
         dataVencimento: '',
     })
+
+    const { id } = useParams();
+
+    useEffect(() =>{
+        if(id) {
+
+        }
+    }, [id])
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +65,7 @@ const NfeCard: FunctionComponent = () =>{
             </div>
 
             <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
-                Salvar
+                {id ? 'Atualizar' : 'Salvar'}
             </button>
         </div>
     )

@@ -23,7 +23,7 @@ const SideBar = () => {
                     <FaHome />
                     Inicio
                     </Link>
-                    <Link to={'/notas-fiscais'} className="flex items-center gap-2 hover:bg-gray-700 rounded px-3 py-2">
+                    <Link to={'/lista-notas-fiscais'} className="flex items-center gap-2 hover:bg-gray-700 rounded px-3 py-2">
                     <FaBuilding />
                     Notas Fiscais
                     </Link>

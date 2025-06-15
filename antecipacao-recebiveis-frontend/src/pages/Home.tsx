@@ -1,4 +1,4 @@
-function Home() {
+const Home = () => {
 
   return (
  <div className="min-h-screen bg-gradient-to-tr from-gray-600 to-black flex flex-col items-center justify-center p-6">

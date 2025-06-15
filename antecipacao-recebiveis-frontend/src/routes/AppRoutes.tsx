@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home'
-import NfeScreen from '../pages/NewNfe'
+import NfeScreen from '../pages/NfeScreen'
 import SideBar from '../components/SideBar'
 import RegisterEntreprise from '../pages/RegisterEntreprise'
+import ListNfe from '../pages/ListNfe'
 
 
 const AppRoutes = () => {
@@ -11,7 +12,9 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<SideBar />}>
           <Route index element={<Home />} />
-          <Route path="/notas-fiscais" element={<NfeScreen />} />
+          <Route path="/lista-notas-fiscais" element={<ListNfe />} />
+          <Route path="/notas-fiscais/nova" element={<NfeScreen />} />
+          <Route path="/notas-fiscais/:id/editar" element={<NfeScreen />} />
           <Route path="/empresa" element={<RegisterEntreprise />} />
         </Route>
 
