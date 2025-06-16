@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AntecipacaoRecebiveis.Domain\AntecipacaoRecebiveis.Domain.csproj" />
+    <ProjectReference Include="..\AntecipacaoRecebiveis.Infrastructure\AntecipacaoRecebiveis.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
