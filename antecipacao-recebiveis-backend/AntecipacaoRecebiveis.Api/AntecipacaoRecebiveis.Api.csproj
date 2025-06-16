@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AntecipacaoRecebiveis.Application\AntecipacaoRecebiveis.Application.csproj" />
+    <ProjectReference Include="..\AntecipacaoRecebiveis.Domain\AntecipacaoRecebiveis.Domain.csproj" />
+    <ProjectReference Include="..\AntecipacaoRecebiveis.Infrastructure\AntecipacaoRecebiveis.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
