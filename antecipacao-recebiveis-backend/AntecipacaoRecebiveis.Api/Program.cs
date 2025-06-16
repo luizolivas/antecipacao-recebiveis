@@ -1,5 +1,6 @@
 using AntecipacaoRecebiveis.Application.Interfaces;
 using AntecipacaoRecebiveis.Application.Services;
+using AntecipacaoRecebiveis.Domain.Entities;
 using AntecipacaoRecebiveis.Infrastructure.Data;
 using AntecipacaoRecebiveis.Infrastructure.Interfaces;
 using AntecipacaoRecebiveis.Infrastructure.Repositories;
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<INfeService, NfeService>();
 builder.Services.AddScoped<INfeRepository, NfeRepository>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
 var app = builder.Build();
 
@@ -36,4 +39,32 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    // Adiciona uma empresa e nota fake
+    var company = new Company {
+        Id = 1,
+        Name = "Empresa Teste",
+        MonthlyBiling = 10000,
+        Sector = Sector.PRODUCAO,
+        CreditLimit = 5000
+    };
+
+    var nfe = new Nfe {
+        Id = 1,
+        Number = "123456",
+        ExpirationDate = DateTime.Now.AddDays(30),
+        CompanyId = 1,
+        Company = company
+    };
+
+    context.Companies.Add(company);
+    context.Nfes.Add(nfe);
+    await context.SaveChangesAsync();
+}
+
 app.Run();
+
+

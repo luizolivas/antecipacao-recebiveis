@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AntecipacaoRecebiveis.Application.Interfaces;
+using AntecipacaoRecebiveis.Domain.Entities;
+using AntecipacaoRecebiveis.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,23 @@ using System.Threading.Tasks;
 
 namespace AntecipacaoRecebiveis.Application.Services
 {
-    internal class CompanyService
+    public class CompanyService : ICompanyService
     {
+        private readonly ICompanyRepository _companyRepository;
+
+        public CompanyService(ICompanyRepository companyRepository)
+        {
+            _companyRepository = companyRepository;
+        }
+
+        public async Task<IEnumerable<Company>> GetAllAsync() => await _companyRepository.GetAllAsync();
+
+        public async Task<Company> GetByIdAsync(int id) => await _companyRepository.GetByIdAsync(id);
+
+        public async Task<Company> CreateAsync(Company company) => await _companyRepository.CreateAsync(company);
+
+        public async Task<Company> UpdateAsync(Company company) => await _companyRepository.UpdateAsync(company);
+
+        public async Task DeleteAsync(int id) => await _companyRepository.DeleteAsync(id);
     }
 }

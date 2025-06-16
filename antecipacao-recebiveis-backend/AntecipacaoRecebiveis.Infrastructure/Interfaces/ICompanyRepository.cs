@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AntecipacaoRecebiveis.Application.Interfaces
+namespace AntecipacaoRecebiveis.Infrastructure.Interfaces
 {
-    public interface ICompanyService
+    public interface ICompanyRepository
     {
         Task<IEnumerable<Company>> GetAllAsync();
         Task<Company> GetByIdAsync(int id);
