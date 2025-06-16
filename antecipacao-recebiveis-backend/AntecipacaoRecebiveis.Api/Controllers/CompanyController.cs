@@ -1,6 +1,6 @@
-﻿using AntecipacaoRecebiveis.Application.Interfaces;
-using AntecipacaoRecebiveis.Domain.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using AntecipacaoRecebiveis.Application.DTOs;
+using AntecipacaoRecebiveis.Application.Interfaces;
+using AntecipacaoRecebiveis.Application.Mapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntecipacaoRecebiveis.Api.Controllers
@@ -17,23 +17,36 @@ namespace AntecipacaoRecebiveis.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _companyService.GetAllAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var companies = await _companyService.GetAllAsync();
+            var result = companies.Select(c => c.ToDto());
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _companyService.GetByIdAsync(id);
-            return result == null ? NotFound() : Ok(result);
+            var company = await _companyService.GetByIdAsync(id);
+            return company == null ? NotFound() : Ok(company.ToDto());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Company company) => Ok(await _companyService.CreateAsync(company));
+        public async Task<IActionResult> Create([FromBody] CompanyDto dto)
+        {
+            var company = dto.ToEntity();
+            var created = await _companyService.CreateAsync(company);
+            return Ok(created.ToDto());
+        }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Company company)
+        public async Task<IActionResult> Update(int id, [FromBody] CompanyDto dto)
         {
-            if (id != company.Id) return BadRequest();
-            return Ok(await _companyService.UpdateAsync(company));
+            if (id != dto.Id) return BadRequest();
+
+            var company = dto.ToEntity();
+            var updated = await _companyService.UpdateAsync(company);
+            return Ok(updated.ToDto());
         }
 
         [HttpDelete("{id}")]

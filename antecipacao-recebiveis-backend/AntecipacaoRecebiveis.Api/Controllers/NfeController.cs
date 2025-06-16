@@ -1,5 +1,6 @@
-﻿using AntecipacaoRecebiveis.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using AntecipacaoRecebiveis.Application.DTOs;
+using AntecipacaoRecebiveis.Application.Interfaces;
+using AntecipacaoRecebiveis.Application.Mapper; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntecipacaoRecebiveis.Api.Controllers
@@ -16,23 +17,36 @@ namespace AntecipacaoRecebiveis.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _nfeService.GetAllAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var nfes = await _nfeService.GetAllAsync();
+            var result = nfes.Select(n => n.ToDto());
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _nfeService.GetByIdAsync(id);
-            return result == null ? NotFound() : Ok(result);
+            var nfe = await _nfeService.GetByIdAsync(id);
+            return nfe == null ? NotFound() : Ok(nfe.ToDto());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Nfe nfe) => Ok(await _nfeService.CreateAsync(nfe));
+        public async Task<IActionResult> Create([FromBody] NfeDto dto)
+        {
+            var nfe = dto.ToEntity();
+            var created = await _nfeService.CreateAsync(nfe);
+            return Ok(created.ToDto());
+        }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Nfe nfe)
+        public async Task<IActionResult> Update(int id, [FromBody] NfeDto dto)
         {
-            if (id != nfe.Id) return BadRequest();
-            return Ok(await _nfeService.UpdateAsync(nfe));
+            if (id != dto.Id) return BadRequest();
+
+            var nfe = dto.ToEntity();
+            var updated = await _nfeService.UpdateAsync(nfe);
+            return Ok(updated.ToDto());
         }
 
         [HttpDelete("{id}")]
@@ -40,6 +54,14 @@ namespace AntecipacaoRecebiveis.Api.Controllers
         {
             await _nfeService.DeleteAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("company/{id}")]
+        public async Task<IActionResult> GetByCompanyId(int id)
+        {
+            var nfes = await _nfeService.GetByCompanyIdAsync(id);
+            var result = nfes.Select(n => n.ToDto());
+            return Ok(result);
         }
     }
 }

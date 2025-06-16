@@ -9,6 +9,17 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Permitir todas as origens (para testes - cuidado em produção!)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
+builder.Services.AddControllers();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -23,6 +34,7 @@ builder.Services.AddScoped<INfeService, NfeService>();
 builder.Services.AddScoped<INfeRepository, NfeRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<ICreditLimitCalculator, CreditLimitCalculator>();
 
 var app = builder.Build();
 
@@ -34,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
@@ -47,6 +61,7 @@ using (var scope = app.Services.CreateScope())
     var company = new Company {
         Id = 1,
         Name = "Empresa Teste",
+        Cnpj = "00.000.000/0001-00",
         MonthlyBiling = 10000,
         Sector = Sector.PRODUCAO,
         CreditLimit = 5000
