@@ -15,11 +15,13 @@ namespace AntecipacaoRecebiveis.Tests
     {
         private readonly Mock<ICompanyRepository> _companyRepositoryMock;
         private readonly ICompanyService _companyService;
+        private readonly Mock<ICreditLimitCalculator> _creditLimitCalculatorMock;
 
         public CompanyServiceTest()
         {
             _companyRepositoryMock = new Mock<ICompanyRepository>();
-            _companyService = new CompanyService(_companyRepositoryMock.Object);
+            _creditLimitCalculatorMock = new Mock<ICreditLimitCalculator>();
+            _companyService = new CompanyService(_companyRepositoryMock.Object,_creditLimitCalculatorMock.Object);
         }
 
         [Fact]
