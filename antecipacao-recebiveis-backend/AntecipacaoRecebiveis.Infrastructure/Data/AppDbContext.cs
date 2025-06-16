@@ -14,6 +14,7 @@ namespace AntecipacaoRecebiveis.Infrastructure.Data
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<Nfe> Nfes { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
     }
 }

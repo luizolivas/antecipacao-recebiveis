@@ -26,5 +26,7 @@ namespace AntecipacaoRecebiveis.Application.Services
         public async Task<Nfe> UpdateAsync(Nfe nfe) => await _nfeRepository.UpdateAsync(nfe);
 
         public async Task DeleteAsync(int id) => await _nfeRepository.DeleteAsync(id);
+
+        public async Task<IEnumerable<Nfe>> GetByCompanyIdAsync(int idCompany) => await _nfeRepository.GetByCompanyIdAsync(idCompany);
     }
 }

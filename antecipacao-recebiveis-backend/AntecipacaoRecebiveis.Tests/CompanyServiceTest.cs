@@ -29,8 +29,8 @@ namespace AntecipacaoRecebiveis.Tests
         {
             var companies = new List<Company>
             {
-                new Company { Id = 1, Name = "Empresa A", MonthlyBiling = 10000, Sector = Sector.PRODUCAO, CreditLimit = 5000 },
-                new Company { Id = 2, Name = "Empresa B", MonthlyBiling = 20000, Sector = Sector.PRODUCAO, CreditLimit = 10000 }
+                new Company { Id = 1, Name = "Empresa A", Cnpj= "00.000.000/0001-00", MonthlyBiling = 10000, Sector = Sector.PRODUCAO, CreditLimit = 5000 },
+                new Company { Id = 2, Name = "Empresa B", Cnpj= "00.000.000/0001-00", MonthlyBiling = 20000, Sector = Sector.PRODUCAO, CreditLimit = 10000 }
             };
 
             _companyRepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(companies);
@@ -45,7 +45,7 @@ namespace AntecipacaoRecebiveis.Tests
         [Fact]
         public async Task CreateAsync_ShouldCreateCompany()
         {
-            var company = new Company { Id = 1, Name = "Empresa Nova", MonthlyBiling = 15000, Sector = Sector.SERVICO, CreditLimit = 7000 };
+            var company = new Company { Id = 1, Name = "Empresa Nova", Cnpj= "00.000.000/0001-00", MonthlyBiling = 15000, Sector = Sector.SERVICO, CreditLimit = 7000 };
 
             _companyRepositoryMock.Setup(repo => repo.CreateAsync(company)).ReturnsAsync(company);
 
@@ -60,7 +60,7 @@ namespace AntecipacaoRecebiveis.Tests
         [Fact]
         public async Task UpdateAsync_ShouldUpdateCompany()
         {
-            var company = new Company { Id = 1, Name = "Empresa Atualizada", MonthlyBiling = 20000, Sector = Sector.PRODUCAO, CreditLimit = 10000 };
+            var company = new Company { Id = 1, Name = "Empresa Atualizada", Cnpj = "00.000.000/0001-00", MonthlyBiling = 20000, Sector = Sector.PRODUCAO, CreditLimit = 10000 };
 
             _companyRepositoryMock.Setup(repo => repo.UpdateAsync(company)).ReturnsAsync(company);
 
@@ -88,7 +88,7 @@ namespace AntecipacaoRecebiveis.Tests
         public async Task GetByIdAsync_ShouldReturnCompany_WhenExists()
         {
             int id = 1;
-            var company = new Company { Id = id, Name = "Empresa Existente", MonthlyBiling = 10000, Sector = Sector.SERVICO, CreditLimit = 5000 };
+            var company = new Company { Id = id, Name = "Empresa Existente", Cnpj = "00.000.000/0001-00", MonthlyBiling = 10000, Sector = Sector.SERVICO, CreditLimit = 5000 };
 
             _companyRepositoryMock.Setup(repo => repo.GetByIdAsync(id)).ReturnsAsync(company);
 

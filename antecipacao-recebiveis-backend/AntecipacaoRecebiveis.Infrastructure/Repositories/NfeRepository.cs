@@ -45,5 +45,13 @@ namespace AntecipacaoRecebiveis.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Nfe>> GetByCompanyIdAsync(int id)
+        {
+            return await _context.Nfes
+                .Include(n => n.Company)
+                .Where(n => n.Company.Id == id)
+                .ToListAsync();
+        }
     }
 }

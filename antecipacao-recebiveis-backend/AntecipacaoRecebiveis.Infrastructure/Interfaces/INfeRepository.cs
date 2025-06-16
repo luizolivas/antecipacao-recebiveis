@@ -13,5 +13,6 @@ namespace AntecipacaoRecebiveis.Infrastructure.Interfaces
         Task<Nfe> CreateAsync(Nfe nfe);
         Task<Nfe> UpdateAsync(Nfe nfe);
         Task DeleteAsync(int id);
+        Task<IEnumerable<Nfe>> GetByCompanyIdAsync(int id);
     }
 }

@@ -15,7 +15,7 @@ namespace AntecipacaoRecebiveis.Application.Mapper
             return new CompanyDto {
                 Id = company.Id,
                 nome = company.Name,
-                cnpj = company.Cnpj, // exemplo
+                cnpj = company.Cnpj, 
                 faturamentoMensal = company.MonthlyBiling,
                 setor = company.Sector,
                 creditLimit = company.CreditLimit

@@ -1,83 +1,100 @@
-import { useState, type FunctionComponent } from "react";
+import { useEffect, useState, type FunctionComponent } from "react";
 import type { Company } from "../types/Company";
 import { Sector } from "../types/enums/Sector";
+import { useParams } from "react-router-dom";
+import { getCompanyById } from "../services/companyService";
 
-const CompanyCardDetails: FunctionComponent = () =>{
+const CompanyCardDetails: FunctionComponent = () => {
+  const { id } = useParams();
+  const [company, setCompany] = useState<Company>();
 
-    const [company, setCompany] = useState<Company>({
-        id: 1,
-        nome: '',
-        cnpj: '',
-        faturamentoMensal: 0,
-        setor: 0
-    })
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const companyData = await getCompanyById(Number(id));
+        setCompany(companyData);
+      } catch (err) {
+        console.error("Erro ao buscar empresa:", err);
+      }
+    };
 
+    fetchCompany();
+  }, [id]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target
-        setCompany((prev) => ({
-            ...prev,
-            [name]: name === 'valor' ? Number(value) : value
-        }))
-    }
+  if (!company) return <p>Carregando dados da empresa...</p>;
 
-    
-     return ( 
-        <div className="bg-white shadow-md rounded-lg p-4">
-            <h2 className="text-lg font-semibold mb-4">Dados da Empresa</h2>
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setCompany((prev) => {
+      if (!prev) return prev;
 
-            <div className="mb-2">
-                <label className="block text-sm font-medium">Nome</label>
-                <input
-                type="text"
-                value={company.nome}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-2 py-1"         
-                />        
-            </div>
+      return {
+        ...prev,
+        [name]: ["faturamentoMensal", "setor"].includes(name)
+          ? Number(value)
+          : value,
+      };
+    });
+  };
 
-            <div className="mb-2">
-                <label className="block text-sm font-medium">CNPJ</label>
-                <input
-                type="text"
-                value={company.cnpj}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-2 py-1"         
-                />
-            </div>
+  return (
+    <div className="bg-white shadow-md rounded-lg p-4">
+      <h2 className="text-lg font-semibold mb-4">Dados da Empresa</h2>
 
-            <div className="mb-2">
-                <label className="block text-sm font-medium">Faturamento Mensal</label>
-                <input
-                    type="number"
-                    name="dataVencimento"             
-                    value={company.faturamentoMensal}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
-                />
-            </div>
+      <div className="mb-2">
+        <label className="block text-sm font-medium">Nome</label>
+        <input
+          type="text"
+          value={company.nome}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-2 py-1"
+        />
+      </div>
 
-            <div className="mb-2">
-                <label className="block text-sm font-medium">Setor</label>
-                <select
-                name="setor"
-                value={company.setor}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-2 py-1"
-                >
-                {Object.entries(Sector).map(([key,label])=>
-                    <option key={key} value={key}>
-                        {label}
-                    </option>
-                )}
-                </select>
-            </div>
+      <div className="mb-2">
+        <label className="block text-sm font-medium">CNPJ</label>
+        <input
+          type="text"
+          value={company.cnpj}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-2 py-1"
+        />
+      </div>
 
-            <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
-                Salvar
-            </button>
-        </div>
-    )
-}
+      <div className="mb-2">
+        <label className="block text-sm font-medium">Faturamento Mensal</label>
+        <input
+          type="number"
+          name="faturamentoMensal"
+          value={company.faturamentoMensal}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-2 py-1"
+        />
+      </div>
 
-export default CompanyCardDetails
+      <div className="mb-2">
+        <label className="block text-sm font-medium">Setor</label>
+        <select
+          name="setor"
+          value={company.setor}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-2 py-1"
+        >
+          {Object.entries(Sector).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+        Salvar
+      </button>
+    </div>
+  );
+};
+
+export default CompanyCardDetails;

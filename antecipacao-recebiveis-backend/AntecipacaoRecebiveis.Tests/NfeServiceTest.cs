@@ -26,8 +26,8 @@ namespace AntecipacaoRecebiveis.Tests
         {
             var nfes = new List<Nfe>
             {
-                new Nfe { Id = 1, Number = "001", ExpirationDate = DateTime.Now, CompanyId = 1 },
-                new Nfe { Id = 2, Number = "002", ExpirationDate = DateTime.Now, CompanyId = 1 }
+                new Nfe { Id = 1, Number = "001", ExpirationDate = DateTime.Now, Value= 20000, CompanyId = 1 },
+                new Nfe { Id = 2, Number = "002", ExpirationDate = DateTime.Now,Value= 30000, CompanyId = 1 }
             };
 
             _nfeRepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(nfes);
@@ -42,7 +42,7 @@ namespace AntecipacaoRecebiveis.Tests
         [Fact]
         public async Task CreateAsync_ShouldCreateNfe()
         {
-            var nfe = new Nfe { Id = 1, Number = "002", ExpirationDate = DateTime.Now, CompanyId = 1 };
+            var nfe = new Nfe { Id = 1, Number = "002", ExpirationDate = DateTime.Now, Value = 30000, CompanyId = 1 };
 
             _nfeRepositoryMock.Setup(repo => repo.CreateAsync(nfe)).ReturnsAsync(nfe);
 
@@ -58,7 +58,7 @@ namespace AntecipacaoRecebiveis.Tests
         [Fact]
         public async Task UpdateAsync_ShouldUpdateNfe()
         {
-            var nfe = new Nfe { Id = 1, Number = "999", ExpirationDate = DateTime.Now, CompanyId = 2 };
+            var nfe = new Nfe { Id = 1, Number = "999", ExpirationDate = DateTime.Now, Value = 30000, CompanyId = 2 };
 
             _nfeRepositoryMock
                 .Setup(repo => repo.UpdateAsync(nfe))
@@ -90,7 +90,7 @@ namespace AntecipacaoRecebiveis.Tests
         public async Task GetByIdAsync_ShouldReturnNfe_WhenExists()
         {
             int id = 1;
-            var nfe = new Nfe { Id = id, Number = "001", ExpirationDate = DateTime.Now, CompanyId = 1 };
+            var nfe = new Nfe { Id = id, Number = "001", ExpirationDate = DateTime.Now, Value = 30000, CompanyId = 1 };
 
             _nfeRepositoryMock
                 .Setup(repo => repo.GetByIdAsync(id))
