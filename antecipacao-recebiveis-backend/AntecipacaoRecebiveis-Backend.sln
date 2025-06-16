@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntecipacaoRecebiveis.Api", "AntecipacaoRecebiveis.Api\AntecipacaoRecebiveis.Api.csproj", "{2831447B-333F-4721-821E-C3BF93036CF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntecipacaoRecebiveis.Api", "AntecipacaoRecebiveis.Api\AntecipacaoRecebiveis.Api.csproj", "{2831447B-333F-4721-821E-C3BF93036CF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntecipacaoRecebiveis.Domain", "AntecipacaoRecebiveis.Domain\AntecipacaoRecebiveis.Domain.csproj", "{9DFE957B-DAE9-4BBE-8FFF-17434EE13B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntecipacaoRecebiveis.Application", "AntecipacaoRecebiveis.Application\AntecipacaoRecebiveis.Application.csproj", "{8D1C4FA6-B9E2-414A-B4DA-2E45361D4A93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntecipacaoRecebiveis.Infrastructure", "AntecipacaoRecebiveis.Infrastructure\AntecipacaoRecebiveis.Infrastructure.csproj", "{88E49920-0AF4-4291-8729-A21EA3F92869}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntecipacaoRecebiveis.Tests", "AntecipacaoRecebiveis.Tests\AntecipacaoRecebiveis.Tests.csproj", "{397EEE20-702E-4890-87D3-C37905C9FB0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{2831447B-333F-4721-821E-C3BF93036CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2831447B-333F-4721-821E-C3BF93036CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2831447B-333F-4721-821E-C3BF93036CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFE957B-DAE9-4BBE-8FFF-17434EE13B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFE957B-DAE9-4BBE-8FFF-17434EE13B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFE957B-DAE9-4BBE-8FFF-17434EE13B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFE957B-DAE9-4BBE-8FFF-17434EE13B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1C4FA6-B9E2-414A-B4DA-2E45361D4A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1C4FA6-B9E2-414A-B4DA-2E45361D4A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1C4FA6-B9E2-414A-B4DA-2E45361D4A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1C4FA6-B9E2-414A-B4DA-2E45361D4A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E49920-0AF4-4291-8729-A21EA3F92869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E49920-0AF4-4291-8729-A21EA3F92869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E49920-0AF4-4291-8729-A21EA3F92869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E49920-0AF4-4291-8729-A21EA3F92869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397EEE20-702E-4890-87D3-C37905C9FB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397EEE20-702E-4890-87D3-C37905C9FB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397EEE20-702E-4890-87D3-C37905C9FB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397EEE20-702E-4890-87D3-C37905C9FB0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
