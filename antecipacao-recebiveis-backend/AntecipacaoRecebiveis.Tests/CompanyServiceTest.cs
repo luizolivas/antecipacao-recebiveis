@@ -98,5 +98,21 @@ namespace AntecipacaoRecebiveis.Tests
             Assert.Equal(id, result.Id);
             _companyRepositoryMock.Verify(repo => repo.GetByIdAsync(id), Times.Once);
         }
+
+        [Fact]
+        public async Task GetCreditLimitByIdAsync_ShouldReturnCreditLimit()
+        {
+            int companyId = 1;
+            decimal expectedCreditLimit = 15000m;
+
+            _companyRepositoryMock
+                .Setup(repo => repo.GetCreditLimitByIdAsync(companyId))
+                .ReturnsAsync(expectedCreditLimit);
+
+            var result = await _companyService.GetCreditLimitByIdAsync(companyId);
+
+            Assert.Equal(expectedCreditLimit, result);
+            _companyRepositoryMock.Verify(repo => repo.GetCreditLimitByIdAsync(companyId), Times.Once);
+        }
     }
 }
