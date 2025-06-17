@@ -15,3 +15,13 @@ export const removeCartItem = async (id: number): Promise<void> => {
   await api.delete(`/Cart/${id}`)
 }
 
+export const getTotalValorBruto = async (companyId: number): Promise<number> => {
+  const response = await api.get(`/Cart/total-valor-bruto/${companyId}`);
+  return response.data;
+};
+
+export const getDetailedCalculation = async (companyId: number): Promise<any> => {
+  const response = await api.get(`/Cart/calculo-detalhado/${companyId}`);
+  return response.data;
+};
+

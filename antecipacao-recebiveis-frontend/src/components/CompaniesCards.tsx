@@ -13,7 +13,7 @@ const CompaniesCards = ({ company }: Props) => {
   const { empresaSelecionada, setEmpresaSelecionada } = useEmpresa();
 
   const handleEdit = () => {
-    navigate(`/empresa-detalhes/${company.id}/editar`);
+    navigate(`/empresa-detalhes/${company.id}`);
   };
 
   const handleSelect = () => {
@@ -61,7 +61,7 @@ const CompaniesCards = ({ company }: Props) => {
             onClick={handleSelect}
             className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer"
           >
-            Utilizar
+            Selecionar
           </button>
         </div>
       </div>

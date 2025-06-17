@@ -2,29 +2,38 @@ import { useEffect, useState } from "react";
 import type { Company } from "../types/Company";
 import CompanyCard from "../components/CompaniesCards";
 import { getCompanies } from "../services/companyService";
+import { Link } from "react-router-dom";
 
 const ListCompanies = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const data = await getCompanies()
-        setCompanies(data)
+        const data = await getCompanies();
+        setCompanies(data);
       } catch (error) {
-        console.error('Erro ao buscar empresas:', error)
+        console.error("Erro ao buscar empresas:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchCompanies()
-  }, [])
+    fetchCompanies();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Empresas Cadastradas</h1>
+      <div className="flex justify-end mb-4">
+        <Link
+          to="/empresa-detalhes/nova"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          + Empresa
+        </Link>
+      </div>
 
       {loading ? (
         <p className="text-gray-600">Carregando empresas...</p>

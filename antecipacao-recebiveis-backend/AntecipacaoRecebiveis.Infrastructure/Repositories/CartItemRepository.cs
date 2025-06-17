@@ -51,5 +51,12 @@ namespace AntecipacaoRecebiveis.Infrastructure.Repositories
                 .Where(ci => ci.CompanyId == companyId)
                 .SumAsync(ci => ci.Nfe != null ? (decimal?)ci.Nfe.Value : 0) ?? 0;
         }
+
+        public async Task<decimal> GetTotalValorBrutoByCompanyidAsync(int companyId)
+        {
+            return await _context.CartItems
+                .Where(n => n.CompanyId == companyId)
+                .SumAsync(n => n.Nfe.Value);
+        }
     }
 }

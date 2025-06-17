@@ -5,7 +5,11 @@ import {
   getCartItems,
   addCartItem,
   removeCartItem,
+  getTotalValorBruto,
+  getDetailedCalculation,
 } from "../services/cartItemService";
+import { toast } from "react-toastify";
+import formatarReais from "../utils/formatarReais";
 
 interface Props {
   companyId: number;
@@ -15,6 +19,8 @@ const AnticipationCart = ({ companyId }: Props) => {
   const [notas, setNotas] = useState<Nfe[]>([]);
   const [carrinho, setCarrinho] = useState<Nfe[]>([]);
   const [totalLiquido, setTotalLiquido] = useState(0);
+  const [totalValorBruto, settotalValorBruto] = useState(0);
+  const [calculoDetalhado, setCalculoDetalhado] = useState<any | null>(null);
 
   useEffect(() => {
     loadNotas();
@@ -33,6 +39,7 @@ const AnticipationCart = ({ companyId }: Props) => {
     const selecionadas = todasNotas.filter((n) => nfeIds.includes(n.id));
     setCarrinho(selecionadas);
     calcularTotalLiquido(companyId);
+    calcularTotalValorBruto(companyId);
   };
 
   const calcularTotalLiquido = async (companyId: number) => {
@@ -40,9 +47,31 @@ const AnticipationCart = ({ companyId }: Props) => {
     setTotalLiquido(total);
   };
 
+  const calcularTotalValorBruto = async (companyId: number) => {
+    const total = await getTotalValorBruto(companyId);
+    settotalValorBruto(total);
+  };
   const handleAdicionar = async (nfe: Nfe) => {
-    await addCartItem({ id: 0, companyId: companyId, nfeId: nfe.id });
-    await loadCarrinho();
+    try {
+      await addCartItem({ id: 0, companyId: companyId, nfeId: nfe.id });
+      await loadCarrinho();
+    } catch (error: any) {
+      if (error.response?.data?.error) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error("Erro ao adicionar nota ao carrinho");
+      }
+    }
+  };
+
+  const handleCalcularNotas = async () => {
+    try {
+      const data = await getDetailedCalculation(companyId);
+      setCalculoDetalhado(data);
+    } catch (error) {
+      toast.error("Erro ao calcular notas.");
+      console.error(error);
+    }
   };
 
   const handleRemover = async (nfeId: number) => {
@@ -66,7 +95,7 @@ const AnticipationCart = ({ companyId }: Props) => {
             >
               <div>
                 <p className="font-medium">Nota {nfe.numero}</p>
-                <p>Valor: R$ {nfe.valor.toFixed(2)}</p>
+                <p>Valor: R$ {formatarReais(nfe.valor)}</p>
                 <p>
                   Vencimento:{" "}
                   {new Date(nfe.dataVencimento).toLocaleDateString()}
@@ -104,7 +133,7 @@ const AnticipationCart = ({ companyId }: Props) => {
               >
                 <div>
                   <p className="font-medium">Nota {nfe.numero}</p>
-                  <p>Valor Bruto: R$ {nfe.valor.toFixed(2)}</p>
+                  <p>Valor Bruto: R$ {formatarReais(nfe.valor)}</p>
                   <p>
                     Vencimento:{" "}
                     {new Date(nfe.dataVencimento).toLocaleDateString()}
@@ -123,8 +152,22 @@ const AnticipationCart = ({ companyId }: Props) => {
 
         <div className="mt-4 text-right">
           <p className="text-lg font-bold">
-            Valor Líquido Total: R$ {totalLiquido.toFixed(2)}
+            Valor Bruto Total: R$ {formatarReais(totalValorBruto)}
           </p>
+          <p className="text-lg font-bold">
+            Valor Líquido Total: R$ {formatarReais(totalLiquido)}
+          </p>
+          <button
+            onClick={handleCalcularNotas}
+            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 cursor-pointer"
+          >
+            Calcular Notas (JSON)
+          </button>
+          {calculoDetalhado && (
+            <pre className="mt-4 p-4 bg-gray-100 rounded text-xs overflow-auto text-left">
+              {JSON.stringify(calculoDetalhado, null, 2)}
+            </pre>
+          )}
         </div>
       </div>
     </div>

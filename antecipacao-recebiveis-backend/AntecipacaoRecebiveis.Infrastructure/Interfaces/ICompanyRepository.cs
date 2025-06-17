@@ -14,5 +14,7 @@ namespace AntecipacaoRecebiveis.Infrastructure.Interfaces
         Task<Company> CreateAsync(Company company);
         Task<Company> UpdateAsync(Company company);
         Task DeleteAsync(int id);
+        Task<decimal> GetCreditLimitByIdAsync(int companyId);
+
     }
 }

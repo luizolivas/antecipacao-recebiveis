@@ -53,5 +53,7 @@ namespace AntecipacaoRecebiveis.Infrastructure.Repositories
                 .Where(n => n.Company.Id == id)
                 .ToListAsync();
         }
+
+
     }
 }

@@ -45,7 +45,7 @@ namespace AntecipacaoRecebiveis.Application.Services
                 var invoice = item.Nfe;
                 if (invoice != null)
                 {
-                    var days = Math.Max(0, (invoice.ExpirationDate - today).Days);
+                    var days = Math.Max(0, (invoice.ExpirationDate - today).Days  +1);
                     var discount = (double)invoice.Value / Math.Pow(1 + rate, days / 30.0);
                     total += discount;
                 }
@@ -53,5 +53,6 @@ namespace AntecipacaoRecebiveis.Application.Services
 
             return (decimal)total;
         }
+
     }
 }

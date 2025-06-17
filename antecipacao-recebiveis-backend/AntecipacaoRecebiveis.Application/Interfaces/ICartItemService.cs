@@ -13,5 +13,9 @@ namespace AntecipacaoRecebiveis.Application.Interfaces
         Task<CartItem> AddAsync(CartItem cartItem);
         Task RemoveAsync(int cartItemId);
         Task<decimal> GetTotalCartValueAsync(int companyId);
+        Task<decimal> CalculateTotalBrutoAsync(int companyId);
+        Task<bool> IsValueWithinCreditLimit(int companyId, decimal newValue);
+        Task<object> GetDetailedCalculationAsync(int companyId);
+
     }
 }

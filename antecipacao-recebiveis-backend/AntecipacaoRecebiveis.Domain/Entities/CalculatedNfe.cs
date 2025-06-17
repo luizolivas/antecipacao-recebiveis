@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace AntecipacaoRecebiveis.Domain.Entities
 {
-    public class CartItem
+    public class CalculatedNfe
     {
-        public int Id { get; set; }
-        public int CompanyId { get; set; }
-        public int NfeId { get; set; }
-        public Nfe Nfe { get; set; }
-
+        public string Numero { get; set; }
+        public decimal ValorBruto { get; set; }
+        public decimal ValorLiquido { get; set; }
     }
 }

@@ -13,5 +13,7 @@ namespace AntecipacaoRecebiveis.Infrastructure.Interfaces
         Task<CartItem> AddAsync(CartItem cartItem);
         Task RemoveAsync(int cartItemId);
         Task<decimal> GetTotalCartValueAsync(int companyId);
+        Task<decimal> GetTotalValorBrutoByCompanyidAsync(int companyId);
+
     }
 }

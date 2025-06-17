@@ -1,6 +1,8 @@
 ﻿using AntecipacaoRecebiveis.Application.DTOs;
 using AntecipacaoRecebiveis.Application.Interfaces;
 using AntecipacaoRecebiveis.Application.Mapper;
+using AntecipacaoRecebiveis.Application.Services;
+using AntecipacaoRecebiveis.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntecipacaoRecebiveis.Api.Controllers
@@ -27,8 +29,15 @@ namespace AntecipacaoRecebiveis.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CartItemDto dto)
         {
-            var item = await _cartItemService.AddAsync(dto.ToEntity());
-            return Ok(item.ToDto());
+            try
+            {
+                var item = await _cartItemService.AddAsync(dto.ToEntity());
+                return Ok(item.ToDto());
+            }
+            catch (CreditLimitExceededException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
@@ -43,6 +52,20 @@ namespace AntecipacaoRecebiveis.Api.Controllers
         {
             var total = await _cartItemService.GetTotalCartValueAsync(companyId);
             return Ok(total);
+        }
+
+        [HttpGet("total-valor-bruto/{companyId}")]
+        public async Task<IActionResult> GetTotalValorBruto(int companyId)
+        {
+            var total = await _cartItemService.CalculateTotalBrutoAsync(companyId);
+            return Ok(total);
+        }
+
+        [HttpGet("calculo-detalhado/{companyId}")]
+        public async Task<IActionResult> GetDetailedCalculation(int companyId)
+        {
+            var resultado = await _cartItemService.GetDetailedCalculationAsync(companyId);
+            return Ok(resultado);
         }
     }
 }

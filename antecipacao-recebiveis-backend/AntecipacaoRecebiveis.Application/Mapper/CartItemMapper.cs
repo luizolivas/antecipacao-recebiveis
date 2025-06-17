@@ -21,5 +21,6 @@ namespace AntecipacaoRecebiveis.Application.Mapper
             CompanyId = dto.companyId,
             NfeId = dto.nfeId
         };
+
     }
 }

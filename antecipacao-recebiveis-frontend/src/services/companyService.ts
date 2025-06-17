@@ -14,7 +14,12 @@ export const getCompanyById = async (id: number): Promise<Company> => {
   return response.data
 }
 
-export const createCompany = async (company: Company): Promise<Company> => {
+export const createCompany = async (company: Omit<Company, 'id'> ): Promise<Company> => {
   const response = await api.post('/Company', company)
   return response.data
 }
+
+export const updateCompany = async (id: number, company: Company) => {
+  const response = await api.put(`/company/${id}`, company);
+  return response.data;
+};

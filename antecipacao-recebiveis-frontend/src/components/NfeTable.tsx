@@ -3,35 +3,52 @@ import type { Nfe } from "../types/Nfe";
 import { useEffect, useState } from "react";
 import { getNfesByCompanyId } from "../services/nfeService";
 import { useEmpresa } from "../context/CompanyContext";
+import { formatToBrazilian } from "../utils/date";
+import { getCartItems } from "../services/cartItemService";
 
 const NfeTable = () => {
   const [nfe, setNfe] = useState<Nfe[]>([]);
+  const [cartNfeIds, setCartNfeIds] = useState<number[]>([]);
+
   const { empresaSelecionada } = useEmpresa();
 
   useEffect(() => {
-    const fetchCompany = async () => {
-      if (!empresaSelecionada?.id) return <p>Carregando empresa...</p>; 
+    const fetchData = async () => {
+      if (!empresaSelecionada?.id) return;
 
       try {
-        const nfeData = await getNfesByCompanyId(Number(empresaSelecionada.id));
-        setNfe(nfeData);
+        const [nfeData, cartItems] = await Promise.all([
+          getNfesByCompanyId(Number(empresaSelecionada.id)),
+          getCartItems(Number(empresaSelecionada.id)),
+        ]);
+
+        const nfesComDataFormatada = nfeData.map((nfe) => ({
+          ...nfe,
+          dataVencimento: nfe.dataVencimento?.split("T")[0] ?? "",
+        }));
+
+        setNfe(nfesComDataFormatada);
+        setCartNfeIds(cartItems.map((item) => item.nfeId));
       } catch (err) {
-        console.error("Erro ao buscar empresa:", err);
+        console.error("Erro ao buscar dados:", err);
       }
     };
 
-    fetchCompany();
+    fetchData();
   }, [empresaSelecionada?.id]);
 
   const navigate = useNavigate();
 
-
   if (!empresaSelecionada) {
-    return <p className="text-center text-gray-500 mt-10">Nenhuma empresa selecionada. Vá para Empresas e selecione uma.</p>
+    return (
+      <p className="text-center text-gray-500 mt-10">
+        Nenhuma empresa selecionada. Vá para Empresas e selecione uma.
+      </p>
+    );
   }
 
   const handleEdit = (id: number) => {
-    navigate(`/notas-fiscais/${id}/editar`);
+    navigate(`/notas-fiscais/${id}`);
   };
   return (
     <table className="min-w-full bg-white rounded shadow border-t border-gray-200 text-sm">
@@ -48,7 +65,12 @@ const NfeTable = () => {
             <td className="text-center px-4 py-2">
               <button
                 onClick={() => handleEdit(item.id)}
-                className="text-blue-600 font-medium hover:underline cursor-pointer"
+                disabled={cartNfeIds.includes(item.id)}
+                className={`font-medium ${
+                  cartNfeIds.includes(item.id)
+                    ? "text-gray-400 cursor-not-allowed"
+                    : "text-blue-600 hover:underline cursor-pointer"
+                }`}
               >
                 {item.numero}
               </button>
@@ -59,7 +81,9 @@ const NfeTable = () => {
                 currency: "BRL",
               })}
             </td>
-            <td className="text-center px-4 py-2">{item.dataVencimento}</td>
+            <td className="text-center px-4 py-2">
+              {formatToBrazilian(item.dataVencimento)}
+            </td>
           </tr>
         ))}
       </tbody>

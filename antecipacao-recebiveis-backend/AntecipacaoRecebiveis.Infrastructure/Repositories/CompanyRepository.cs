@@ -46,5 +46,15 @@ namespace AntecipacaoRecebiveis.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<decimal> GetCreditLimitByIdAsync(int companyId)
+        {
+            var limit = await _context.Companies
+            .Where(c => c.Id == companyId)
+            .Select(c => c.CreditLimit)
+            .FirstOrDefaultAsync();
+
+            return limit;
+        }
     }
 }

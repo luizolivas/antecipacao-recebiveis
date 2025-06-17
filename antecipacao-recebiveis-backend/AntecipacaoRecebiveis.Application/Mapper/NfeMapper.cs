@@ -13,10 +13,10 @@ namespace AntecipacaoRecebiveis.Application.Mapper
         {
             return new NfeDto {
                 Id = nfe.Id,
-                Numero = nfe.Number,
-                Valor = nfe.Value,
-                DataVencimento = nfe.ExpirationDate,
-                CompanyId = nfe.CompanyId
+                numero = nfe.Number,
+                valor = nfe.Value,
+                dataVencimento = nfe.ExpirationDate,
+                companyId = nfe.CompanyId
             };
         }
 
@@ -24,10 +24,10 @@ namespace AntecipacaoRecebiveis.Application.Mapper
         {
             return new Nfe {
                 Id = dto.Id,
-                Number = dto.Numero,
-                Value = dto.Valor,
-                ExpirationDate = dto.DataVencimento,
-                CompanyId = dto.CompanyId
+                Number = dto.numero,
+                Value = dto.valor,
+                ExpirationDate = dto.dataVencimento,
+                CompanyId = dto.companyId
             };
         }
     }

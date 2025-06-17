@@ -1,9 +1,5 @@
 ﻿using AntecipacaoRecebiveis.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AntecipacaoRecebiveis.Application.Interfaces
 {
@@ -14,5 +10,6 @@ namespace AntecipacaoRecebiveis.Application.Interfaces
         Task<Company> CreateAsync(Company company);
         Task<Company> UpdateAsync(Company company);
         Task DeleteAsync(int id);
+        Task<decimal> GetCreditLimitByIdAsync(int id);
     }
 }

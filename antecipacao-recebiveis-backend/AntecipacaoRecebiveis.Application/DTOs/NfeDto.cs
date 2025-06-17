@@ -9,9 +9,9 @@ namespace AntecipacaoRecebiveis.Application.DTOs
     public class NfeDto
     {
         public int Id { get; set; }
-        public string Numero { get; set; } = string.Empty;
-        public decimal Valor { get; set; }
-        public DateTime DataVencimento { get; set; }
-        public int CompanyId { get; set; } 
+        public string numero { get; set; } = string.Empty;
+        public decimal valor { get; set; }
+        public DateTime dataVencimento { get; set; }
+        public int companyId { get; set; } 
     }
 }

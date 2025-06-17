@@ -30,8 +30,14 @@ namespace AntecipacaoRecebiveis.Application.Services
             return await _companyRepository.CreateAsync(company);
         }
 
-        public async Task<Company> UpdateAsync(Company company) => await _companyRepository.UpdateAsync(company);
+        public async Task<Company> UpdateAsync(Company company)
+        {
+            company.CreditLimit = _creditLimitCalculator.CalculateCreditLimit(company.MonthlyBiling, company.Sector);
+            return await _companyRepository.UpdateAsync(company);
+        } 
 
         public async Task DeleteAsync(int id) => await _companyRepository.DeleteAsync(id);
+
+        public async Task<decimal> GetCreditLimitByIdAsync(int id) => await _companyRepository.GetCreditLimitByIdAsync(id);
     }
 }
