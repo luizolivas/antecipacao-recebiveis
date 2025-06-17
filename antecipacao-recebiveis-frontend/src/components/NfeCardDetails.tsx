@@ -25,16 +25,14 @@ const NfeCardDetails: FunctionComponent = () => {
     }
 
     const fetchNfe = async () => {
-      
-        const data = await getNfeById(Number(id));
+      const data = await getNfeById(Number(id));
 
-        const dataFormatada = data.dataVencimento.split("T")[0];
+      const dataFormatada = data.dataVencimento.split("T")[0];
 
-        setNfe({
-          ...data,
-          dataVencimento: dataFormatada,
-        });
-
+      setNfe({
+        ...data,
+        dataVencimento: dataFormatada,
+      });
     };
 
     fetchNfe();
@@ -64,11 +62,7 @@ const NfeCardDetails: FunctionComponent = () => {
       return;
     }
 
-    if (
-      !nfe.numero.trim() ||
-      nfe.valor === 0 || 
-      !nfe.dataVencimento.trim()
-    ) {
+    if (!nfe.numero.trim() || nfe.valor === 0 || !nfe.dataVencimento.trim()) {
       toast.error("Preencha todos os campos antes de salvar.");
       return;
     }
@@ -88,6 +82,10 @@ const NfeCardDetails: FunctionComponent = () => {
     } catch (error) {
       toast.error("Erro ao salvar nota fiscal.");
     }
+  };
+
+  const handleBack = () => {
+    navigate(`/lista-notas-fiscais`);
   };
 
   if (!nfe) return <p>Carregando dados da NF-e...</p>;
@@ -144,13 +142,20 @@ const NfeCardDetails: FunctionComponent = () => {
           className="w-full border border-gray-300 rounded px-2 py-1"
         />
       </div>
-
-      <button
-        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:to-blue-800 cursor-pointer"
-        onClick={handleSave}
-      >
-        {id == "nova" ? "Salvar" : "Atualizar"}
-      </button>
+      <div className="mt-4 flex gap-2">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:to-blue-800 cursor-pointer"
+          onClick={handleSave}
+        >
+          {id == "nova" ? "Salvar" : "Atualizar"}
+        </button>
+        <button
+          className="bg-gray-300 hover:bg-gray-400 focus:ring-gray-400 text-black px-4 py-2 rounded cursor-pointer"
+          onClick={handleBack}
+        >
+          Voltar
+        </button>
+      </div>
     </div>
   );
 };
