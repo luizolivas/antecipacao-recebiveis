@@ -1,5 +1,6 @@
 ﻿using AntecipacaoRecebiveis.Application.Interfaces;
 using AntecipacaoRecebiveis.Infrastructure.Interfaces;
+using AntecipacaoRecebiveis.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace AntecipacaoRecebiveis.Application.Services
     public class NfeService : INfeService
     {
         private readonly INfeRepository _nfeRepository;
+        private readonly ICartItemRepository _cartItemRepository;
 
-        public NfeService(INfeRepository nfeRepository)
+        public NfeService(INfeRepository nfeRepository, ICartItemRepository cartItemRepository)
         {
             _nfeRepository = nfeRepository;
+            _cartItemRepository = cartItemRepository;
         }
 
         public async Task<IEnumerable<Nfe>> GetAllAsync() => await _nfeRepository.GetAllAsync();
@@ -28,5 +31,27 @@ namespace AntecipacaoRecebiveis.Application.Services
         public async Task DeleteAsync(int id) => await _nfeRepository.DeleteAsync(id);
 
         public async Task<IEnumerable<Nfe>> GetByCompanyIdAsync(int idCompany) => await _nfeRepository.GetByCompanyIdAsync(idCompany);
+
+        public async Task<decimal> CalculateNetTotalAsync(int companyId)
+        {
+            var cartItems = await _cartItemRepository.GetAllByCompanyIdAsync(companyId);
+            var today = DateTime.Now;
+            const double rate = 0.0465;
+
+            double total = 0;
+
+            foreach (var item in cartItems)
+            {
+                var invoice = item.Nfe;
+                if (invoice != null)
+                {
+                    var days = Math.Max(0, (invoice.ExpirationDate - today).Days);
+                    var discount = (double)invoice.Value / Math.Pow(1 + rate, days / 30.0);
+                    total += discount;
+                }
+            }
+
+            return (decimal)total;
+        }
     }
 }

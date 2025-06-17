@@ -10,5 +10,6 @@ namespace AntecipacaoRecebiveis.Application.Interfaces
         Task<Nfe> UpdateAsync(Nfe nfe);
         Task DeleteAsync(int id);
         Task<IEnumerable<Nfe>> GetByCompanyIdAsync(int idCompany);
+        Task<decimal> CalculateNetTotalAsync(int companyId);
     }
 }

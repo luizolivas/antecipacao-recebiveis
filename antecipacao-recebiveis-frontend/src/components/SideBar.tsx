@@ -1,25 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { FaHome, FaBuilding, FaFileInvoice } from "react-icons/fa";
-import CompanySelector from "./CompanySelector";
-import type { Company } from "../types/Company";
-import { getCompanies } from "../services/companyService";
+
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [companies, setCompanies] = useState<Company[]>([]);
 
-  useEffect(() => {
-    async function fetchEmpresas() {
-       try {
-         const data = await getCompanies()
-         setCompanies(data)
-       } catch (error) {
-         console.error('Erro ao buscar empresas:', error)
-       }
-    }
-    fetchEmpresas();
-  }, []);
 
   return (
     <div className="flex min-h-screen">
@@ -29,7 +15,6 @@ const SideBar = () => {
         }`}
       >
         <h2 className="text-xl font-bold mb-6">Menu</h2>
-        <CompanySelector empresas={companies} />
         <button onClick={() => setIsOpen(false)} className="md:hidden mb-4">
           Fechar ×
         </button>

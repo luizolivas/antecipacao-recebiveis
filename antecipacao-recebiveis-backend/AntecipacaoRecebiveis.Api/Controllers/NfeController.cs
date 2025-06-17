@@ -63,5 +63,12 @@ namespace AntecipacaoRecebiveis.Api.Controllers
             var result = nfes.Select(n => n.ToDto());
             return Ok(result);
         }
+
+        [HttpGet("total-liquido/{companyId}")]
+        public async Task<IActionResult> GetTotalLiquido(int companyId)
+        {
+            var total = await _nfeService.CalculateNetTotalAsync(companyId);
+            return Ok(total);
+        }
     }
 }
