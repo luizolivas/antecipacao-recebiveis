@@ -29,8 +29,8 @@ const CompanyCardDetails: FunctionComponent = () => {
       return;
     }
     const fetchCompany = async () => {
-        const companyData = await getCompanyById(Number(id));
-        setCompany(companyData);
+      const companyData = await getCompanyById(Number(id));
+      setCompany(companyData);
     };
 
     fetchCompany();
@@ -38,7 +38,10 @@ const CompanyCardDetails: FunctionComponent = () => {
 
   const handleSave = async () => {
     if (!company) return;
-
+    if (company.faturamentoMensal < 10000) {
+      toast.error("O faturamento mensal deve ser maior que R$ 9.999.");
+      return; 
+    }
     try {
       if (id && id !== "nova") {
         await updateCompany(Number(id), company);
@@ -118,7 +121,7 @@ const CompanyCardDetails: FunctionComponent = () => {
               target: {
                 ...e.target,
                 name: "faturamentoMensal",
-                value: e.target.rawValue, 
+                value: e.target.rawValue,
               },
             })
           }
