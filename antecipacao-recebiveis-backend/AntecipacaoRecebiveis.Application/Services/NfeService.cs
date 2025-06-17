@@ -12,12 +12,12 @@ namespace AntecipacaoRecebiveis.Application.Services
     public class NfeService : INfeService
     {
         private readonly INfeRepository _nfeRepository;
-        private readonly ICartItemService _cartItemService;
+        private readonly ICartItemRepository _cartItemRepository;
 
-        public NfeService(INfeRepository nfeRepository, ICartItemService cartItemService)
+        public NfeService(INfeRepository nfeRepository, ICartItemRepository cartItemRepository)
         {
             _nfeRepository = nfeRepository;
-            _cartItemService = cartItemService;
+            _cartItemRepository = cartItemRepository;
         }
 
         public async Task<IEnumerable<Nfe>> GetAllAsync() => await _nfeRepository.GetAllAsync();
@@ -34,7 +34,7 @@ namespace AntecipacaoRecebiveis.Application.Services
 
         public async Task<decimal> CalculateNetTotalAsync(int companyId)
         {
-            var cartItems = await _cartItemService.GetAllByCompanyIdAsync(companyId);
+            var cartItems = await _cartItemRepository.GetAllByCompanyIdAsync(companyId);
             var today = DateTime.Now;
             const double rate = 0.0465;
 

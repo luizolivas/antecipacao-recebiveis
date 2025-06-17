@@ -17,13 +17,13 @@ namespace AntecipacaoRecebiveis.Tests
     {
         private readonly Mock<INfeRepository> _nfeRepositoryMock;
         private readonly INfeService _nfeService;
-        private readonly Mock<ICartItemService> _cartItemServiceMock;
+        private readonly Mock<ICartItemRepository> _cartItemRepositoryMock;
 
         public NfeServiceTests()
         {
             _nfeRepositoryMock = new Mock<INfeRepository>();
-            _cartItemServiceMock = new Mock<ICartItemService>();
-            _nfeService = new NfeService(_nfeRepositoryMock.Object, _cartItemServiceMock.Object);
+            _cartItemRepositoryMock = new Mock<ICartItemRepository>();
+            _nfeService = new NfeService(_nfeRepositoryMock.Object, _cartItemRepositoryMock.Object);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace AntecipacaoRecebiveis.Tests
         new CartItem { Id = 2, NfeId = nfe2.Id, Nfe = nfe2 }
     };
 
-            _cartItemServiceMock
+            _cartItemRepositoryMock
                 .Setup(s => s.GetAllByCompanyIdAsync(companyId))
                 .ReturnsAsync(cartItems);
 
