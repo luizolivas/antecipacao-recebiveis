@@ -56,32 +56,32 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-//    var company = new Company {
-//        Id = 1,
-//        Name = "Empresa Teste",
-//        Cnpj = "00.000.000/0001-00",
-//        MonthlyBiling = 10000,
-//        Sector = Sector.PRODUCAO,
-//        CreditLimit = 5000
-//    };
+    var company = new Company {
+        Id = 1,
+        Name = "Empresa Teste",
+        Cnpj = "00.000.000/0001-00",
+        MonthlyBiling = 10000,
+        Sector = Sector.PRODUCAO,
+        CreditLimit = 5000
+    };
 
-//    var nfe = new Nfe {
-//        Id = 1,
-//        Number = "123456",
-//        ExpirationDate = DateTime.Now.AddDays(30),
-//        CompanyId = 1,
-//        Value = 5000,
-//        Company = company
-//    };
+    var nfe = new Nfe {
+        Id = 1,
+        Number = "123456",
+        ExpirationDate = DateTime.Now.AddDays(30),
+        CompanyId = 1,
+        Value = 5000,
+        Company = company
+    };
 
-//    context.Companies.Add(company);
-//    context.Nfes.Add(nfe);
-//    await context.SaveChangesAsync();
-//}
+    context.Companies.Add(company);
+    context.Nfes.Add(nfe);
+    await context.SaveChangesAsync();
+}
 
 app.Run();
 
