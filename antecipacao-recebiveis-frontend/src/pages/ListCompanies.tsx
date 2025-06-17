@@ -14,7 +14,6 @@ const ListCompanies = () => {
         const data = await getCompanies();
         setCompanies(data);
       } catch (error) {
-        console.error("Erro ao buscar empresas:", error);
       } finally {
         setLoading(false);
       }

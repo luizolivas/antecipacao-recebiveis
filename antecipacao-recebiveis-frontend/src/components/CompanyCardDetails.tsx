@@ -17,7 +17,6 @@ const CompanyCardDetails: FunctionComponent = () => {
   const navigate = useNavigate();
   const { setEmpresaSelecionada } = useEmpresa();
   useEffect(() => {
-    console.log("akid: ", id);
     if (id === "nova") {
       setCompany({
         id: 0,
@@ -30,12 +29,8 @@ const CompanyCardDetails: FunctionComponent = () => {
       return;
     }
     const fetchCompany = async () => {
-      try {
         const companyData = await getCompanyById(Number(id));
         setCompany(companyData);
-      } catch (err) {
-        console.error("Erro ao buscar empresa:", err);
-      }
     };
 
     fetchCompany();
@@ -56,7 +51,6 @@ const CompanyCardDetails: FunctionComponent = () => {
         navigate("/lista-empresas");
       }
     } catch (error) {
-      console.error("Erro ao salvar empresa:", error);
       toast.error("Erro ao salvar empresa.");
     }
   };

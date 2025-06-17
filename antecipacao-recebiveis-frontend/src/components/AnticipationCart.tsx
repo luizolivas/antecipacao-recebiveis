@@ -70,7 +70,6 @@ const AnticipationCart = ({ companyId }: Props) => {
       setCalculoDetalhado(data);
     } catch (error) {
       toast.error("Erro ao calcular notas.");
-      console.error(error);
     }
   };
 

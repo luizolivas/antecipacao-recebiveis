@@ -25,7 +25,7 @@ const NfeCardDetails: FunctionComponent = () => {
     }
 
     const fetchNfe = async () => {
-      try {
+      
         const data = await getNfeById(Number(id));
 
         const dataFormatada = data.dataVencimento.split("T")[0];
@@ -34,9 +34,7 @@ const NfeCardDetails: FunctionComponent = () => {
           ...data,
           dataVencimento: dataFormatada,
         });
-      } catch (err) {
-        console.error("Erro ao buscar nota fiscal:", err);
-      }
+
     };
 
     fetchNfe();
@@ -88,7 +86,6 @@ const NfeCardDetails: FunctionComponent = () => {
 
       navigate("/lista-notas-fiscais");
     } catch (error) {
-      console.error("Erro ao salvar NF-e:", error);
       toast.error("Erro ao salvar nota fiscal.");
     }
   };

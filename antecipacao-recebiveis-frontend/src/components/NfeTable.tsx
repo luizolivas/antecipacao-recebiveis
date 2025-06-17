@@ -16,7 +16,7 @@ const NfeTable = () => {
     const fetchData = async () => {
       if (!empresaSelecionada?.id) return;
 
-      try {
+
         const [nfeData, cartItems] = await Promise.all([
           getNfesByCompanyId(Number(empresaSelecionada.id)),
           getCartItems(Number(empresaSelecionada.id)),
@@ -29,9 +29,7 @@ const NfeTable = () => {
 
         setNfe(nfesComDataFormatada);
         setCartNfeIds(cartItems.map((item) => item.nfeId));
-      } catch (err) {
-        console.error("Erro ao buscar dados:", err);
-      }
+
     };
 
     fetchData();
