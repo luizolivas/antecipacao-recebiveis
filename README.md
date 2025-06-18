@@ -74,3 +74,51 @@ https://localhost:{port}/swagger/v1/swagger.json
 ### ✅ Testes
 
 Testes unitarios com xUnit e Moq localizados na pasta AntecipacaoRecebiveis.Tests
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+## ⚙️ Decisões tomadas
+
+## ⚙️ Decisões tomadas
+
+- **Separação em camadas (API, Application, Domain, Infrastructure):**  
+  Adotei um padrão DDD simplificado para garantir uma organização clara e coerente entre regras de negócio, entidades, persistência de dados e exposição via API.  
+- **Banco de dados em memória (InMemory):**  
+  Escolha ideal para facilitar testes e demonstrações, eliminando a necessidade de configuração complexa de banco relacional durante o desenvolvimento inicial.  
+- **CORS liberado (AllowAll):**  
+  Configuração que simplificou a comunicação entre frontend e backend em ambiente local, evitando problemas de política de segurança. Reforço que essa configuração não é recomendada para ambientes de produção.  
+- **Testes unitários com xUnit e Moq:**  
+  Implementação de testes para validar as regras de negócio de forma isolada, promovendo qualidade e confiança no código com boa performance.
+
+---
+
+## 🏗 Arquitetura adotada
+
+O projeto está estruturado em camadas bem definidas, favorecendo a manutenção, extensibilidade e testabilidade:
+
+- **Domain Layer:** contém as entidades, enums e regras fundamentais do negócio.  
+- **Application Layer:** responsável pelas regras de negócio específicas, serviços, DTOs e interfaces.  
+- **Infrastructure Layer:** implementação dos repositórios, contexto de dados e integração com a persistência.  
+- **API Layer:** camada de apresentação, que expõe a funcionalidade via API RESTful para o frontend e clientes.
+
+---
+
+## 📐 Aplicação dos princípios SOLID
+
+Busquei aplicar os princípios SOLID para tornar o código mais limpo, modular e fácil de evoluir:
+
+- **SRP (Single Responsibility Principle):** responsabilidades separadas em classes e camadas específicas.  
+- **OCP (Open/Closed Principle) e DIP (Dependency Inversion Principle):** uso de interfaces e injeção de dependências para permitir extensões sem modificações diretas no código existente.  
+- **ISP (Interface Segregation Principle):** priorização de interfaces pequenas e específicas, evitando acoplamento desnecessário.
+
+Reconheço que sempre há espaço para melhorias e estou aberto a evoluir a arquitetura conforme o projeto avance.
+
+---
+
+## 🚀 Melhorias futuras sugeridas
+ 
+- Criar pipeline de CI/CD com GitHub Actions para builds, testes automatizados e deploy.  
+- Adicionar autenticação e autorização, por exemplo, com JWT, para controlar acesso.  
+- Substituir o banco em memória por um banco relacional como PostgreSQL ou SQL Server.  
+- Integrar análise estática de código, por exemplo, usando SonarQube.  
+- Automatizar o cálculo do faturamento mensal das empresas com base nos valores das notas fiscais, evitando entrada manual.
