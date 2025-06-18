@@ -79,8 +79,6 @@ Testes unitarios com xUnit e Moq localizados na pasta AntecipacaoRecebiveis.Test
 
 ## ⚙️ Decisões tomadas
 
-## ⚙️ Decisões tomadas
-
 - **Separação em camadas (API, Application, Domain, Infrastructure):**  
   Adotei um padrão DDD simplificado para garantir uma organização clara e coerente entre regras de negócio, entidades, persistência de dados e exposição via API.  
 - **Banco de dados em memória (InMemory):**  
